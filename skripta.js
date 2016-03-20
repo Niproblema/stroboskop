@@ -29,13 +29,12 @@ window.addEventListener('load', function() {
 	var ustavi = false;
 
 	var spremeniBarvo = function(id) {
-		document.getElementById("stroboskop").style.backgroundColor = "#" + vrednosti[id];
-
 		if (ustavi) {
 			ustavi = false;
 
 		}
 		else {
+			document.getElementById("stroboskop").style.backgroundColor = "#" + vrednosti[id];
 			novId = (id + 1) % vrednosti.length;
 			timeout = Math.floor((Math.random() * (maxCas - minCas)) + minCas);
 			setTimeout(function() {
@@ -60,14 +59,19 @@ window.addEventListener('load', function() {
 			vrednosti.push(barva.innerHTML);
 		}
 
-		minCas = 1000;
-		maxCas = 1000;
+		minCas = document.getElementById("min").value;
+		maxCas = document.getElementById("max").value;
+		if(minCas <= maxCas){
+		
 		spremeniBarvo(0);
 
 		var start = document.querySelector("#start");
 		start.innerHTML = "Ustavi stroboskop";
 		start.removeEventListener('click', zagon);
 		start.addEventListener('click', stop);
+		}else{
+			alert("Neveljavna izbira časov!")
+		}
 	}
 
 	document.querySelector("#start").addEventListener('click', zagon);
